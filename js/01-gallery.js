@@ -3,10 +3,25 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-const galleryEl = document.querySelector('.gallery')
-const markup = createMark(galleryItems)
+const galleryEl = document.querySelector('.gallery');
+const markup = createMark(galleryItems);
 
-galleryEl.insertAdjacentHTML('beforeend', markup)
+galleryEl.insertAdjacentHTML("beforeend", markup);
+galleryEl.addEventListener("click", getImgsrc);
+
+function getImgsrc(event) {
+    event.preventDefault();
+  if (event.target.tagName !== "IMG") return;
+  const dataGallary = event.target.dataset.source;
+  const instance = basicLightbox.create(
+    `<div class="modal">
+      <img src="${dataGallary}" alt="cartoons" width="1000"/>
+    </div>
+`
+  );
+
+  instance.show();
+}
 
 
 function createMark(items) {
@@ -22,3 +37,5 @@ function createMark(items) {
   </a>
 </div>`).join('')
 }
+
+
